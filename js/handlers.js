@@ -8,7 +8,7 @@ var headers = {"content-type" : "text/html"};
 
 handlers.home = function(req,res){
   res.writeHead(200, headers);
-  res.write("<a href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "> Login To Github</a>")
+  res.write("<a id='auth' href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "> Login To Github</a>")
   res.end(index);
 };
 
@@ -25,8 +25,5 @@ handlers.notFound = function(req,res){
 };
 
 handlers.login = function(req,res){
-  console.log("m8");
-  // console.log("handler", req.url);
   app.swapCodeForToken(req,res)
-
 }

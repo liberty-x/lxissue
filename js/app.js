@@ -15,10 +15,6 @@ app.parseBody = function(object, callback) {
   });
 };
 
-app.putTokenInHeaders = function(token){
-  console.log("i am the callback");
-}
-
 app.swapCodeForToken = function (req,res){
   var code = (req.url).split('code=')[1];
   var options = {
@@ -31,11 +27,11 @@ app.swapCodeForToken = function (req,res){
     client_secret: process.env.client_secret,
     code: code
   });
-  var githubReq = https.request(options, function(res){
-    app.parseBody(res, function(body){
-    console.log(body.split('=')[1].split('&')[0]);
-    return body.split('=')[1].split('&')[0];
-    });
-  });
-  githubReq.end(postData);
+  var githubReq = https.request(options, function(responseFromGithub){
+    responseFromGithub.on('data', function(chunk){
+      var accessToken = chunk.toString().split('=')[1].split('&')[0];
+      res.writeHead(200,{ "Set-Cookie" : 'access=' + accessToken});
+      res.end('logged in');
+    })
+  }).end(postData);
 }

@@ -1,6 +1,7 @@
 var shot = require("shot");
 var test = require("tape");
 var router = require("./../js/router.js");
+var app = require("./../js/app.js");
 
 testUrl("/", 200);
 testUrl("/public/main.css", 200);

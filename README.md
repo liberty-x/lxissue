@@ -8,7 +8,7 @@ Who else is going to get the bad guys closing other people's issues?
 
 Please find our application here:
 
-[Link here]
+[Link]
 
 ## Who?
 

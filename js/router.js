@@ -3,6 +3,7 @@ var routes = {
   '/': handlers.home,
   '/public/main.css': handlers.file,
   '/public/frontend.js': handlers.file,
+  '/gitter' : handlers.gitter,
   '404': handlers.notFound
 };
 

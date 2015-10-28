@@ -21,3 +21,9 @@ handlers.notFound = function(req,res){
   res.writeHead(404, headers);
   res.end("Can't help you there, chum!");
 };
+
+handlers.gitter = function(req,res){
+  console.log('handlers.gitter');
+  // try putting in app
+  app.gitterPost(req,res);
+};

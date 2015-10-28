@@ -1,3 +1,7 @@
+[![Code Climate](https://codeclimate.com/github/liberty-x/lxissue/badges/gpa.svg)](https://codeclimate.com/github/liberty-x/lxissue)
+[![Test Coverage](https://codeclimate.com/github/liberty-x/lxissue/badges/coverage.svg)](https://codeclimate.com/github/liberty-x/lxissue/coverage)
+[![Build Status](https://travis-ci.org/liberty-x/lxissue.svg)](https://travis-ci.org/liberty-x/lxissue)
+
 # LX Issue
 
 Who else is going to get the bad guys closing other people's issues?

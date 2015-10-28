@@ -1,4 +1,5 @@
 var handlers = module.exports = {};
+var app = require('./app.js');
 var fs = require('fs');
 var index = fs.readFileSync(__dirname + '/../public/index.html');
 

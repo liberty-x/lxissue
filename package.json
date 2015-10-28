@@ -1,0 +1,35 @@
+{
+  "name": "lxissue",
+  "version": "1.0.0",
+  "description": "Shame those closers",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/tape ./test/backendTest.js",
+    "start": "nodemon ./js/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liberty-x/lxissue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liberty-x/lxissue/issues"
+  },
+  "homepage": "https://github.com/liberty-x/lxissue#readme",
+  "devDependencies": {
+    "nodemon": "^1.8.0",
+    "pre-commit": "^1.1.2",
+    "shot": "^1.7.0",
+    "tape": "^4.2.2"
+  },
+  "dependencies": {
+    "env2": "^2.0.4"
+  },
+  "pre-commit" : [
+      "test"
+  ]
+}

@@ -33,6 +33,7 @@
     "env2": "^2.0.4"
   },
   "pre-commit": [
-    "test"
+    "test",
+    "coverage"
   ]
 }

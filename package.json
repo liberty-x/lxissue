@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/tape ./test/backendTest.js",
-    "start": "nodemon ./js/server.js"
+    "start": "nodemon ./js/server.js",
+    "coverage": "istanbul cover ./node_modules/.bin/tape ./test/*",
+    "codeclimate":"CODECLIMATE_REPO_TOKEN=280d6cac3e8744f75814053b484da641799003d6236e68d2c2bee199951c5132 codeclimate-test-reporter < ./coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/liberty-x/lxissue#readme",
   "devDependencies": {
+    "istanbul": "^0.4.0",
     "nodemon": "^1.8.0",
     "pre-commit": "^1.1.2",
     "shot": "^1.7.0",
@@ -29,7 +32,7 @@
   "dependencies": {
     "env2": "^2.0.4"
   },
-  "pre-commit" : [
-      "test"
+  "pre-commit": [
+    "test"
   ]
 }

@@ -1,5 +1,5 @@
 var button = document.getElementById('nuke');
-// will need to change depending on issue numbers
+// will need to change for each unique button
 
 var request = new XMLHttpRequest();
 

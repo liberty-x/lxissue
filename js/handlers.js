@@ -23,7 +23,5 @@ handlers.notFound = function(req,res){
 };
 
 handlers.gitter = function(req,res){
-  console.log('handlers.gitter');
-  // try putting in app
   app.gitterPost(req,res);
 };

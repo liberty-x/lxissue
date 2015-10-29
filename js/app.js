@@ -17,51 +17,26 @@ app.parseBody = function(object, callback) {
 };
 
 app.gitterPost = function(req, res) {
-  // app.gitterAuth(req, res);
-  var token = (req.headers.cookie).split("=")[1];
-  console.log(token);
+  //foundersandcoders room id: 5476793bdb8155e6700d889f
   var options = {
     host: 'api.gitter.im',
-    path: '/v1/rooms/RachelBLondon/libert-x/chatMessages',
+    path: '/v1/rooms/55f6ced50fc9f982beb0a1cd/chatMessages',
     headers: {
-      // These weren't strings in documentation
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      // find out what token is
       'Authorization': 'Bearer 352a20aa8842b2841080b476d6a4ede2182b36d5'
     },
     method: 'POST'
   };
-  var body = {
-    "text": "LX RIDDLE!"
+  var message = {
+    "text": "please check issue number"
   };
   var gitterReq = https.request(options, function(res) {
     app.parseBody(res, function(body) {
       console.log('>>>>>>>>>>',body);
     });
-  });
-  gitterReq.write(JSON.stringify(body));
-  gitterReq.end();
+  }).end(JSON.stringify(message));
 };
-
-// app.gitterAuth = function (req, res) {
-//   var code = (req.url).split('code=')[1];
-//   var options = {
-//     hostname: 'gitter.im',
-//     path: '/login/oauth/token',
-//     method : 'POST'
-//   };
-//   var postData = querystring.stringify({
-//     gitter_client_id: process.env.gitter_client_id,
-//     gitter_client_secret: process.env.gitter_client_secret,
-//     code: code
-//   });
-//   https.request(options, function(responseFromGitter){
-//     app.parseBody(responseFromGitter, function(body){
-//       console.log('>>>>>>>>>>', body);
-//     });
-//   }).end(postData);
-// };
 
 app.swapCodeForToken = function (req,res, callback){
   var code = (req.url).split('code=')[1];

@@ -1,6 +1,4 @@
-var handlers = module.exports = {
-  index: index
-};
+var handlers = module.exports = {};
 var app = require('./app.js');
 var fs = require('fs');
 var env = require('env2')('./config.env');

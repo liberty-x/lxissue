@@ -37,34 +37,32 @@ app.swapCodeForToken = function (req,res, callback){
 
 app.getIssues = function(req, res, callback){
   var token = (req.headers.cookie).split("=")[1];
-  console.log(token);
   var username;
   app.getUsername(req, res, token, function(username){
-    // console.log(username);
-    // var options = {
-    //   hostname: 'api.github.com',
-    //   path: '/Jbarget/issues?access_token=' + token,
-    //   method: 'GET',
-    //   headers: {
-    //       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36'
-    //   }
-    // };
     var options = {
               host: 'api.github.com',
-              path: '/user/issues',
+              path: '/issues?filter=assigned&state=open',
               method: 'GET',
               headers: {
                   'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36',
                   'Authorization': 'token ' + token
-              }
+              },
           };
     https.request(options, function(responseFromGithub){
       app.parseBody(responseFromGithub, function(body){
-        console.log(body);
+        var listOfIssues = JSON.parse(body).map(matchResults);
+        callback(listOfIssues);
       });
     }).end();
   });
 };
+
+function matchResults(value){
+  return {
+      title: value.title,
+      number: value.number,
+    };
+}
 
 app.getUsername = function (req, res, token, callback){
   var options = {

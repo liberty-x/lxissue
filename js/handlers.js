@@ -12,7 +12,7 @@ var headers = {"content-type" : "text/html"};
 
 handlers.home = function(req,res){
   res.writeHead(200, headers);
-  res.write("<a id='auth' href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "> Login To Github</a>");
+  res.write("<a id='auth' href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "&scope=repo> Login To Github</a>");
   res.end(index);
 };
 
@@ -37,7 +37,9 @@ handlers.login = function(req,res){
 };
 
 handlers.getIssues = function(req,res){
-  app.getIssues(req,res, function(issues){
-    // res.end(issues)
+  app.getIssues(req,res, function(listOfIssues){
+    console.log(listOfIssues);
+    res.writeHead(200, headers);
+    res.end(JSON.stringify(listOfIssues));
   });
 };

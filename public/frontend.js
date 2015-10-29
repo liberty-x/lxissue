@@ -2,8 +2,10 @@ document.getElementById('getIssues').addEventListener("click", function(){
   var req = new XMLHttpRequest();
   req.onreadystatechange = function(){
     if (req.readyState === 4 && req.status === 200){
-      console.log("hello!");
       console.log(req.responseText);
+      var issues = JSON.parse(req.responseText);
+      console.log(issues);
+      issues.map(appendToHTML);
     }
   };
   req.open("GET", "/getIssues");
@@ -17,10 +19,17 @@ button.addEventListener('click', function(e){
     e.preventDefault();
     console.log('>>> button');
     request.onreadystatechange = function(){
-      if (request.readyState === 4 && request.status === 400) {
-          console.log(request.response);
+      if (request.readyState === 4 && request.status === 200) {
+          console.log(request.responseText);
       }
     };
     request.open("POST", "/gitter");
     request.send();
 });
+
+function appendToHTML(value){
+  var node = document.createElement("div");
+  var textnode = document.createTextNode(value.title);
+  node.appendChild(textnode);
+  document.getElementById('issues').appendChild(node);
+}

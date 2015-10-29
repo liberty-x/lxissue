@@ -10,32 +10,9 @@ app.parseBody = function(object, callback) {
   object.on('end', function() {
     callback(body);
   });
-  // commented out because we want that sweet 100% coverage
-  // object.on('error', function(e) {
-  //   console.log("Got error: " + e.message);
-  // });
-};
-
-app.gitterPost = function(req, res) {
-  //foundersandcoders room id: 5476793bdb8155e6700d889f
-  var options = {
-    host: 'api.gitter.im',
-    path: '/v1/rooms/55f6ced50fc9f982beb0a1cd/chatMessages',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer 352a20aa8842b2841080b476d6a4ede2182b36d5'
-    },
-    method: 'POST'
-  };
-  var message = {
-    "text": "please check issue number"
-  };
-  var gitterReq = https.request(options, function(res) {
-    app.parseBody(res, function(body) {
-      console.log('>>>>>>>>>>',body);
-    });
-  }).end(JSON.stringify(message));
+  object.on('error', function(e) {
+    console.log("Got error: " + e.message);
+  });
 };
 
 app.swapCodeForToken = function (req,res, callback){
@@ -73,6 +50,7 @@ app.getIssues = function(req, res, callback){
           };
     https.request(options, function(responseFromGithub){
       app.parseBody(responseFromGithub, function(body){
+        console.log(body);
         var listOfIssues = JSON.parse(body).map(matchResults);
         callback(listOfIssues);
       });
@@ -84,6 +62,8 @@ function matchResults(value){
   return {
       title: value.title,
       number: value.number,
+      user: value.user.login,
+      url: value.url
     };
 }
 

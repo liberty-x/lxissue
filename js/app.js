@@ -50,7 +50,6 @@ app.getIssues = function(req, res, callback){
           };
     https.request(options, function(responseFromGithub){
       app.parseBody(responseFromGithub, function(body){
-        console.log(body);
         var listOfIssues = JSON.parse(body).map(matchResults);
         callback(listOfIssues);
       });
@@ -61,9 +60,9 @@ app.getIssues = function(req, res, callback){
 function matchResults(value){
   return {
       title: value.title,
-      number: value.number,
       user: value.user.login,
-      url: value.url
+      url: value.url.replace("api.","").replace("/repos",""),
+      id: value.id
     };
 }
 
@@ -81,4 +80,35 @@ app.getUsername = function (req, res, token, callback){
       callback(username);
     });
   }).end();
+};
+
+app.gitterPost = function(req, res, callback) {
+  //foundersandcoders room id: 5476793bdb8155e6700d889f
+  //libertyx room id: 55f6ced50fc9f982beb0a1cd
+  var objFromFrontend = app.parseBody(req, function(body){
+    var issueMessage = JSON.parse(body);
+    sendGitterRequest(issueMessage);
+  });
+
+  function sendGitterRequest (issueMessage) {
+    var options = {
+      host: 'api.gitter.im',
+      path: '/v1/rooms/55f6ced50fc9f982beb0a1cd/chatMessages',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer 352a20aa8842b2841080b476d6a4ede2182b36d5'
+      },
+      method: 'POST'
+    };
+    var message = {
+      "text": " please check issue " + issueMessage.url + " to see if it has been resolved"
+      // "text": "@" + issueMessage.user + " please check issue " + gitterURL + " to see if it has been resolved"
+    };
+    var gitterReq = https.request(options, function(res) {
+      app.parseBody(res, function(body) {
+      });
+    }).end(JSON.stringify(message));
+  }
+  callback();
 };

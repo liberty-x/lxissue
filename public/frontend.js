@@ -2,9 +2,7 @@ document.getElementById('getIssues').addEventListener("click", function(){
   var req = new XMLHttpRequest();
   req.onreadystatechange = function(){
     if (req.readyState === 4 && req.status === 200){
-      console.log(req.responseText);
       var issues = JSON.parse(req.responseText);
-      console.log(issues);
       issues.map(appendToHTML);
     }
   };
@@ -12,24 +10,37 @@ document.getElementById('getIssues').addEventListener("click", function(){
   req.send();
 });
 
-var button = document.getElementById('nuke');
-// will need to change for each unique button
-button.addEventListener('click', function(e){
-  var request = new XMLHttpRequest();
-    e.preventDefault();
-    console.log('>>> button');
-    request.onreadystatechange = function(){
-      if (request.readyState === 4 && request.status === 200) {
-          console.log(request.responseText);
-      }
-    };
-    request.open("POST", "/gitter");
-    request.send();
-});
+function gitterPost(obj){
+  var button = document.getElementById(obj.issueId);
+  button.addEventListener('click', function(e){
+    var request = new XMLHttpRequest();
+      e.preventDefault();
+      request.onreadystatechange = function(){
+        if (request.readyState === 4 && request.status === 200) {
+          if (request.responseText === 'OK'){
+            button.parentNode.removeChild(button)
+          };
+        }
+      };
+      request.open("POST", "/gitter");
+      request.send(JSON.stringify(obj));
+  });
+}
 
 function appendToHTML(value){
+  var obj = {
+    issueId: value.id,
+    url: value.url,
+    user: value.user
+  };
   var node = document.createElement("div");
-  var textnode = document.createTextNode(value.title);
-  node.appendChild(textnode);
+  var link = document.createElement("a");
+  var button = document.createElement("button");
+  link.setAttribute("href", value.url);
+  button.setAttribute("id", obj.issueId);
+  var url = node.appendChild(link);
+  url.innerHTML = value.title;
+  node.appendChild(button);
   document.getElementById('issues').appendChild(node);
+  gitterPost(obj);
 }

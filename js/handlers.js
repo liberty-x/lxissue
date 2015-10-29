@@ -33,12 +33,14 @@ handlers.login = function(req,res){
 };
 
 handlers.gitter = function(req,res){
-  app.gitterPost(req,res);
+  app.gitterPost(req,res, function(){
+    res.writeHead(200, headers);
+    res.end('OK');
+  });
 };
 
 handlers.getIssues = function(req,res){
   app.getIssues(req,res, function(listOfIssues){
-    console.log(listOfIssues);
     res.writeHead(200, headers);
     res.end(JSON.stringify(listOfIssues));
   });

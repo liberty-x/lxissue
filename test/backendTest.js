@@ -6,7 +6,7 @@ var app = require("./../js/app.js");
 testUrl("/", 200);
 testUrl("/public/main.css", 200);
 testUrl("/public/frontend.js", 200);
-// testUrl("/getIssues", 200);
+testUrl("/login", 200);
 testUrl("/duckquack", 404);
 // Won't work without token
 // testUrl("/gitter", 200);
@@ -44,3 +44,18 @@ function testUrl(url, statusCode){
     });
   });
 }
+
+
+// test("testing getIssues endpoint", function(t){
+//   var request = {
+//     method: "GET",
+//     url: "/getIssues"
+//   };
+//
+//   shot.inject(router, request, function(res){
+//     var actual = res.statusCode;
+//     var expected = 200;
+//     t.equal(actual, expected, "test passed");
+//     t.end();
+//   });
+// });

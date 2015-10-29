@@ -1,12 +1,9 @@
-var handlers = module.exports = {
-  index: index
-};
+var handlers = module.exports = {};
 var app = require('./app.js');
 var fs = require('fs');
 var env = require('env2')('./config.env');
 var querystring = require('querystring');
 var index = fs.readFileSync(__dirname + '/../public/index.html');
-var issuesHTML = fs.readFileSync(__dirname + '/../public/issues.html');
 
 var headers = {"content-type" : "text/html"};
 
@@ -31,9 +28,12 @@ handlers.notFound = function(req,res){
 handlers.login = function(req,res){
   app.swapCodeForToken(req,res, function(accessToken){
     res.writeHead(200,{ "Set-Cookie" : 'access=' + accessToken});
-    res.end(issuesHTML);
+    res.end(index);
   });
+};
 
+handlers.gitter = function(req,res){
+  app.gitterPost(req,res);
 };
 
 handlers.getIssues = function(req,res){

@@ -17,15 +17,18 @@ app.parseBody = function(object, callback) {
 };
 
 app.gitterPost = function(req, res) {
+  // app.gitterAuth(req, res);
+  var token = (req.headers.cookie).split("=")[1];
+  console.log(token);
   var options = {
     host: 'api.gitter.im',
-    path: '/v1/rooms/RachelBLondon/libert-x/chatMessage',
+    path: '/v1/rooms/RachelBLondon/libert-x/chatMessages',
     headers: {
       // These weren't strings in documentation
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       // find out what token is
-      'Authorization': 'Bearer {{token}}'
+      'Authorization': 'Bearer 352a20aa8842b2841080b476d6a4ede2182b36d5'
     },
     method: 'POST'
   };
@@ -34,13 +37,33 @@ app.gitterPost = function(req, res) {
   };
   var gitterReq = https.request(options, function(res) {
     app.parseBody(res, function(body) {
+      console.log('>>>>>>>>>>',body);
     });
   });
   gitterReq.write(JSON.stringify(body));
   gitterReq.end();
 };
 
-app.swapCodeForToken = function (req,res){
+// app.gitterAuth = function (req, res) {
+//   var code = (req.url).split('code=')[1];
+//   var options = {
+//     hostname: 'gitter.im',
+//     path: '/login/oauth/token',
+//     method : 'POST'
+//   };
+//   var postData = querystring.stringify({
+//     gitter_client_id: process.env.gitter_client_id,
+//     gitter_client_secret: process.env.gitter_client_secret,
+//     code: code
+//   });
+//   https.request(options, function(responseFromGitter){
+//     app.parseBody(responseFromGitter, function(body){
+//       console.log('>>>>>>>>>>', body);
+//     });
+//   }).end(postData);
+// };
+
+app.swapCodeForToken = function (req,res, callback){
   var code = (req.url).split('code=')[1];
   var options = {
     hostname: 'github.com',
@@ -52,11 +75,47 @@ app.swapCodeForToken = function (req,res){
     client_secret: process.env.client_secret,
     code: code
   });
-  var githubReq = https.request(options, function(responseFromGithub){
-    responseFromGithub.on('data', function(chunk){
-      var accessToken = chunk.toString().split('=')[1].split('&')[0];
-      res.writeHead(200,{ "Set-Cookie" : 'access=' + accessToken});
-      res.end('logged in');
+  https.request(options, function(responseFromGithub){
+    app.parseBody(responseFromGithub, function(body){
+      var accessToken = body.toString().split('=')[1].split('&')[0];
+      callback(accessToken);
     });
   }).end(postData);
+};
+
+app.getIssues = function(req, res, callback){
+  var token = (req.headers.cookie).split("=")[1];
+  var username;
+  app.getUsername(req, res, token, function(username){
+    var options = {
+              host: 'api.github.com',
+              path: '/user/issues',
+              method: 'GET',
+              headers: {
+                  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36',
+                  'Authorization': 'token ' + token
+              }
+          };
+    https.request(options, function(responseFromGithub){
+      app.parseBody(responseFromGithub, function(body){
+        console.log(body);
+      });
+    }).end();
+  });
+};
+
+app.getUsername = function (req, res, token, callback){
+  var options = {
+            host: 'api.github.com',
+            path: '/user?access_token=' + token,
+            headers: {
+                'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36'
+            }
+        };
+  https.request(options, function(responseFromGithub){
+    app.parseBody(responseFromGithub, function(body){
+      username = JSON.parse(body).login;
+      callback(username);
+    });
+  }).end();
 };

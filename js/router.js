@@ -6,6 +6,7 @@ var routes = {
   '/public/frontend.js': handlers.file,
   '/login' : handlers.login,
   '/gitter' : handlers.gitter,
+  '/getIssues': handlers.getIssues,
   '404': handlers.notFound
 };
 

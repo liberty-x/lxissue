@@ -6,6 +6,7 @@ var app = require("./../js/app.js");
 testUrl("/", 200);
 testUrl("/public/main.css", 200);
 testUrl("/public/frontend.js", 200);
+// testUrl("/getIssues", 200);
 testUrl("/duckquack", 404);
 
 function testUrl(url, statusCode){

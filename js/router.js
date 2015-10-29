@@ -5,6 +5,7 @@ var routes = {
   '/public/main.css': handlers.file,
   '/public/frontend.js': handlers.file,
   '/login' : handlers.login,
+  '/getIssues': handlers.getIssues,
   '404': handlers.notFound
 };
 

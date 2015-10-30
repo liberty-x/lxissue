@@ -1,13 +1,17 @@
-document.getElementById('getIssues').addEventListener("click", function(){
-  var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if (req.readyState === 4 && req.status === 200){
-      var issues = JSON.parse(req.responseText);
-      issues.map(appendToHTML);
-    }
-  };
-  req.open("GET", "/getIssues");
-  req.send();
+document.getElementById('getIssues').addEventListener("click", function() {
+  if (document.cookie === "") {
+    document.getElementById('pleaseLogin').innerHTML = 'Please Login';
+  } else {
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState === 4 && req.status === 200) {
+        var issues = JSON.parse(req.responseText);
+        issues.map(appendToHTML);
+      }
+    };
+    req.open("GET", "/getIssues");
+    req.send();
+  }
 });
 
 function gitterPost(obj){
@@ -18,8 +22,8 @@ function gitterPost(obj){
       request.onreadystatechange = function(){
         if (request.readyState === 4 && request.status === 200) {
           if (request.responseText === 'OK'){
-            button.parentNode.removeChild(button)
-          };
+            button.parentNode.removeChild(button);
+          }
         }
       };
       request.open("POST", "/gitter");

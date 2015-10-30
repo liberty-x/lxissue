@@ -46,5 +46,3 @@ function appendToHTML(value){
   document.getElementById('issues').appendChild(node);
   gitterPost(obj);
 }
-
-//fac6 room id: 560281dd0fc9f982beb190a6

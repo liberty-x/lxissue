@@ -126,7 +126,7 @@ function sendGitterRequest(issueMessage) {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer 352a20aa8842b2841080b476d6a4ede2182b36d5'
+      'Authorization': 'Bearer ' + process.env.ruths_gitter_token
     },
     method: 'POST'
   };

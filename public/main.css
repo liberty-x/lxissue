@@ -17,6 +17,10 @@
   border-radius: 7px;
 }
 
+.link a:hover{
+  background-color: #131;
+}
+
 body {
   margin: 0;
 }
@@ -33,6 +37,7 @@ h1 {
   font-weight: bold;
   font-size: 4em;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 button {
@@ -41,4 +46,8 @@ button {
   border-radius: 7px;
   border: 0;
   font-size: 1.2em;
+}
+
+button:hover {
+  background-color: #840;
 }

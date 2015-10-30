@@ -18,8 +18,8 @@ function gitterPost(obj){
       request.onreadystatechange = function(){
         if (request.readyState === 4 && request.status === 200) {
           if (request.responseText === 'OK'){
-            button.parentNode.removeChild(button)
-          };
+            button.parentNode.removeChild(button);
+          }
         }
       };
       request.open("POST", "/gitter");
@@ -39,9 +39,12 @@ function appendToHTML(value){
   var button = document.createElement("button");
   link.setAttribute("href", value.url);
   button.setAttribute("id", obj.issueId);
+  button.innerHTML = "Post Message to Gitter";
   var url = node.appendChild(link);
   url.innerHTML = value.title;
   node.appendChild(button);
   document.getElementById('issues').appendChild(node);
   gitterPost(obj);
 }
+
+//fac6 room id: 560281dd0fc9f982beb190a6

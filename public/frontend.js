@@ -34,6 +34,7 @@ function appendToHTML(value){
     user: value.user
   };
   var node = document.createElement("div");
+  node.setAttribute('class', 'issueDiv');
   var link = document.createElement("a");
   var button = document.createElement("button");
   link.setAttribute("href", value.url);

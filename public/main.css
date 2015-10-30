@@ -1,3 +1,44 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.link {
+  float: right;
+  margin-top: 1.5%;
+}
+
+.link a {
+  text-decoration: none;
+  margin-right: 2em;
+  background-color: #339933;
+  padding: 5px;
+  color: white;
+  border-radius: 7px;
+}
+
+body {
+  margin: 0;
+}
+
+.splash {
+  background-image: url("https://files.gitter.im/RachelBLondon/libert-x/Y2oW/background-01.png");
+  height: 20em;
+  text-align: center;
+  color: white;
+}
+
 h1 {
-  color: red;
+  padding-top: 2em;
+  font-weight: bold;
+  font-size: 4em;
+  margin-bottom: 0;
+}
+
+button {
+  color: white;
+  background-color: #FF9933;
+  border-radius: 7px;
+  border: 0;
+  font-size: 1.2em;
 }

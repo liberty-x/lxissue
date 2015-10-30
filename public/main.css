@@ -11,14 +11,18 @@
 .link a {
   text-decoration: none;
   margin-right: 2em;
-  background-color: #339933;
   padding: 5px;
   color: white;
   border-radius: 7px;
+  border-color: white;
+  border-style: solid;
+  font-weight: bolder;
+  border-width: medium;
 }
 
 .link a:hover{
-  background-color: #131;
+    border-color: #FF9933;
+    color: #FF9933;
 }
 
 body {
@@ -42,10 +46,15 @@ h1 {
 
 button {
   color: white;
+  border-color:  #FF9933;
+  color: white;
   background-color: #FF9933;
+  /*border-style: solid;
+  border-width: thick;*/
   border-radius: 7px;
-  border: 0;
   font-size: 1.2em;
+  border: 0;
+  padding: 5px;
 }
 
 button:hover {

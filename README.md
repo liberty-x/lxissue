@@ -4,7 +4,7 @@
 
 # LX Issue
 
-Please find our application here: [Link]
+Please find our application here: http://lxissue.herokuapp.com/
 
 ## Who?
 
@@ -90,4 +90,4 @@ GET /issues
 
 But didn't *fully* realise we wouldn't be able to retrieve issues that were created by the user on repos of organisations they aren't members of! So, yeah... **read documentation diligently**.
 
-### Thanks for reading, enjoy the [app]()! Link needed :smile:
+### Thanks for reading! Enjoy the [app](http://lxissue.herokuapp.com/)! :smile:

@@ -9,7 +9,7 @@ var headers = {"content-type" : "text/html"};
 
 handlers.home = function(req,res){
   res.writeHead(200, headers);
-  res.write("<a id='auth' href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "&scope=repo> Login To Github</a>");
+  res.write("<div class='link'><a id='auth' href=https://github.com/login/oauth/authorize?client_id=" + process.env.client_id + "&scope=repo> Login with Github</a></div>");
   res.end(index);
 };
 

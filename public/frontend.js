@@ -43,6 +43,7 @@ function appendToHTML(value){
   var button = document.createElement("button");
   link.setAttribute("href", value.url);
   button.setAttribute("id", obj.issueId);
+  button.innerHTML = "Post Message to Gitter";
   var url = node.appendChild(link);
   url.innerHTML = value.title;
   node.appendChild(button);
